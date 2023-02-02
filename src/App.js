@@ -1,13 +1,19 @@
 
 import './App.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Form from './components/Form';
 import Todolist from './components/Todolist';
+
 function App() {
+  
   const [inputTxt,setInput]=useState("")
   const [todos,setTodo]=useState([])
   const [status,setStatus]=useState("All")
   const [filtered,setFiltered]=useState([])
+
+  useEffect(()=>{
+    filterHandler()
+  },[todos,status])
 
   const filterHandler=()=>{
     switch(status){
@@ -27,8 +33,13 @@ function App() {
       <header>
         <h1>TODO list</h1>
       </header>
-      <Form inputTxt={inputTxt} todos={todos} setTodos={setTodo} setinputTxt={setInput} setStatus={setStatus}/>
-      <Todolist todos={todos} setTodos={setTodo}/>
+      <Form inputTxt={inputTxt} 
+        todos={todos} 
+        setTodos={setTodo} 
+        setinputTxt={setInput} 
+        setStatus={setStatus} 
+        />
+      <Todolist filtered={filtered}todos={todos} setTodos={setTodo}/>
       </div>
   );
 }
